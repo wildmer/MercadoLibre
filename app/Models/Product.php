@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\softDeletes;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\softDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
@@ -17,4 +18,8 @@ class Product extends Model
         'price',
         'description',
     ];
+
+	public function category() {
+		return $this->belongsTo(Category::class, 'category_id', 'id');
+	}
 }
