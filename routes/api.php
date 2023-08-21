@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthUserAPIController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,4 +24,12 @@ Route::group(['prefix' => 'users', 'controller' => UserController::class], funct
 	Route::post('/', 'store');
 	Route::put('/{user}', 'update');
 	Route::delete('/{user}', 'destroy');
+});
+
+Route::post('/login', [AuthUserAPIController::class, 'login']);
+Route::post('/register', [UserController::class, 'store']);
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+	Route::post('/logout', [AuthUserAPIController::class, 'logout']);
+	Route::post('/profile', [AuthUserAPIController::class, 'profile']);
 });
