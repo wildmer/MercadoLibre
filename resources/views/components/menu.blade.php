@@ -39,21 +39,6 @@
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-                            @role('admin')
-                                <a class="dropdown-item" href="{{ route('users.index') }}">
-                                    Usuarios
-                                </a>
-                                <a class="dropdown-item" href="{{ route('products.index') }}">
-                                    Productos
-                                </a>
-                            @endrole
-                            @can('categories.index')
-                                <a class="dropdown-item" href="{{ route('categories.index') }}">
-                                    Categorias
-                                </a>
-                            @endcan
-
-
                             {{-- Logout --}}
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

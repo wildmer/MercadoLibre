@@ -15,21 +15,23 @@ use App\Http\Controllers\AuthUserAPIController;
 |
 */
 
+Route::post('/login', [AuthUserAPIController::class, 'login']);
+Route::post('/register', [UserController::class, 'store']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix' => 'users', 'controller' => UserController::class], function () {
-	Route::get('/', 'index');
-	Route::post('/', 'store');
-	Route::put('/{user}', 'update');
-	Route::delete('/{user}', 'destroy');
-});
-
-Route::post('/login', [AuthUserAPIController::class, 'login']);
-Route::post('/register', [UserController::class, 'store']);
-
+// Rutas protegidas
 Route::group(['middleware' => ['auth:sanctum']], function () {
 	Route::post('/logout', [AuthUserAPIController::class, 'logout']);
-	Route::post('/profile', [AuthUserAPIController::class, 'profile']);
+	Route::get('/profile', [AuthUserAPIController::class, 'profile']);
+
+	Route::group(['prefix' => 'users', 'controller' => UserController::class], function () {
+		Route::get('/', 'index');
+		Route::get('/{user}', 'show');
+		Route::post('/', 'store');
+		Route::put('/{user}', 'update');
+		Route::delete('/{user}', 'destroy');
+	});
 });
