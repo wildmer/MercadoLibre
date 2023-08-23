@@ -49,6 +49,7 @@ class UserController extends Controller
 	public function update(UserRequest $request, User $user)
 	{
 		$user->update($request->all());
+		$user->syncRoles([$request->role]);
 		if (!$request->ajax()) return back()->with('success', 'User updated');
 		return response()->json([], 204);
 	}

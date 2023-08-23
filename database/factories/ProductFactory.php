@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Product;
+use App\Models\File;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -26,4 +27,12 @@ class ProductFactory extends Factory
 			'description' => $this->faker->paragraph(),
         ];
     }
+
+	public function configure()
+	{
+		return $this->afterCreating(function (Product $product) {
+			$file = new File(['route' => '/storage/images/products/default.png']);
+			$product->file()->save($file);
+		});
+	}
 }

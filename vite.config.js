@@ -13,18 +13,15 @@ export default defineConfig({
 	},
     plugins: [
         laravel({
-            input: [
-                'resources/sass/app.scss',
-                'resources/js/app.js',
-            ],
-            refresh: true,
-        }),
-        vue(),
-    ],
-	build: { chunkSizeWarningLimit: 1000 },
-    resolve: {
-        alias: {
-            vue: 'vue/dist/vue.esm-bundler.js',
+			input: ['resources/sass/app.scss', 'resources/js/app.js'],
+			refresh: true
+		}),
+		vue()
+	],
+	build: { chunkSizeWarningLimit: 1600 },
+	resolve: {
+		alias: {
+			vue: 'vue/dist/vue.esm-bundler.js',
 			'@': path.resolve(__dirname, 'resources/js'),
 			'~': path.resolve(__dirname, 'node_modules')
         },

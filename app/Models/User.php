@@ -6,14 +6,13 @@ use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\softDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasRoles, HasApiTokens, HasFactory, Notifiable, softDeletes;
+	use HasRoles, HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -22,30 +21,31 @@ class User extends Authenticatable
      */
     protected $fillable = [
 		'number_id',
-        'name',
-        'last_name',
-        'email',
-        'password',
-    ];
+		'name',
+		'last_name',
+		'email',
+		'password',
+	];
 
-	protected $appeneds = ['full_name'];
+	protected $appends = ['full_name'];
 
     /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+	protected $hidden = [
+		'password',
+		'remember_token',
+	];
 
 	protected $casts = [
 		'created_at' => 'datetime:Y-m-d',
-        'updated_at' => 'datetime:Y-m-d',
-    ];
+		'updated_at' => 'datetime:Y-m-d',
+	];
 
-	public function getFullNameAtributes(){
+	public function getFullNameAttribute()
+	{
 		return "{$this->name} {$this->last_name}";
 	}
 
@@ -62,7 +62,9 @@ class User extends Authenticatable
 		$this->attributes['password'] = bcrypt($value);
 	}
 
-	public function setRememberTokenAttribute() {
-		$this->attributes['remember_token'] = Str::random(30);
+	public function setRememberTokenAttribute()
+	{
+		$this->attributes['remember_token'] =  Str::random(30);
 	}
+
 }
