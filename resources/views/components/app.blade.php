@@ -17,11 +17,11 @@
 
 <body class="bg-">
 
-    {{-- Menu --}}
-    <x-menu />
-
-    {{-- Content --}}
+	{{-- Content --}}
     <main id="app">
+		{{-- Menu --}}
+		<x-menu />
+
         <div class="container mt-4">
             <x-alerts />
         </div>

@@ -129,7 +129,6 @@ export default {
 			this.product = { ...new_value }
 			if (!this.product.id) return
 			this.is_create = false
-			// this.author = this.product.author_id
 			this.category = this.product.category_id
 			this.image_preview = this.product.file.route
 		}
@@ -141,7 +140,6 @@ export default {
 				stock: yup.number().required().positive().integer(),
 				price: yup.number().required().positive().integer(),
 				description: yup.string(),
-				// author: yup.string().required(),
 				category: yup.string().required()
 			});
 		},
@@ -151,7 +149,6 @@ export default {
 			is_create: true,
 			product: {
 			},
-			// author: null,
 			category: null,
 			categories_data: [],
 			load_category: false,
@@ -204,7 +201,6 @@ export default {
 		reset() {
 			this.is_create = true
 			this.product = {}
-			// this.author = null
 			this.category = null
 			this.$parent.product = {}
 			this.back_errors = {}

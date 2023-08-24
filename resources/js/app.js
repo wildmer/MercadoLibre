@@ -4,11 +4,17 @@ import vSelect from 'vue-select'
 
 // Components ---------------------------------------------------
 import TheProductList from './components/Products/TheProductList.vue'
+import TheProductHome from './components/Products/TheProductHome.vue'
+import TheCategoryList from './components/Category/TheCategoryList.vue'
+import TheCartShopping from './components/CartShopping/TheCartShopping.vue'
 import BackendError from './components/Components/BackendError.vue'
 
 const app = createApp({
 	components: {
-		TheProductList
+		TheProductList,
+		TheProductHome,
+		TheCategoryList,
+		TheCartShopping
 	}
 })
 

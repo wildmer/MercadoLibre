@@ -4,30 +4,48 @@
     </section>
 
     <section class="d-flex flex-wrap justify-content-center">
-        @foreach ($products as $product)
-            <div class="card mx-2 my-3 card_size">
-                <img src="{{ $product->file->route }}" class="card-img-top" alt="Imagen del producto">
-                <div class="card-body">
-                    <h5 class="card-title">{{ $product->name }}</h5>
-                    <p class="card-text">{{ $product->format_description }}</p>
-                    <div class="d-flex flex-wrap">
-                        <span class="w-100">
-                            <strong>Precio: </strong> {{ $product->price }}
-                        </span>
-                        <span class="mt-2">
-                            <strong>Categoria: </strong> {{ $product->category->name }}
-                        </span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-outline-success" type="button">
-                            Comprar
-                        </button>
-                    </div>
-                </div>
-            </div>
-        @endforeach
+		@guest
+			<the-product-home :products="{{ $products }}" :user="false" />
+
+		@else
+
+			{{-- @if (Route::has('login')) --}}
+				<the-product-home :products="{{ $products }}" :user="{{Auth::user()}}" />
+			{{-- @endif --}}
+		@endguest
+
+
     </section>
 
 </x-app>
+
+{{-- <script>
+    function addProduct(idProduct) {
+        if ("{{ Auth::user() }}") {
+            let idUser = "{{ Auth::user()->id }}"
+
+            const getListProduct = localStorage.getItem(idUser);
+            let listProduct = JSON.parse(getListProduct);
+
+            if (!listProduct) {
+                listProduct = []
+            }
+
+            const posicion = listProduct.indexOf(listProduct.find(producto => producto.id === idProduct));
+
+            let _product = {}
+            if (posicion !== -1) {
+                _product = listProduct[posicion]
+                _product['amount'] = _product['amount'] + 1;
+                // listProduct.splice(posicion, 1, _product);
+            } else {
+                _product['id'] = idProduct;
+                _product['amount'] = 1;
+                listProduct.push(_product)
+            }
+
+            localStorage.setItem(idUser, JSON.stringify(listProduct));
+        }
+
+    }
+</script> --}}

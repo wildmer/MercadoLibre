@@ -13,15 +13,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
-    use HasFactory, softDeletes;
+	use HasFactory, SoftDeletes;
 
 	protected $fillable = [
 		'category_id',
-        'name',
-        'stock',
-        'price',
-        'description',
-    ];
+		'name',
+		'stock',
+		'price',
+		'description',
+	];
 
 	protected $appends = ['format_description'];
 
@@ -35,7 +35,8 @@ class Product extends Model
 		);
 	}
 
-	public function category() {
+	public function category()
+	{
 		return $this->belongsTo(Category::class, 'category_id', 'id');
 	}
 
