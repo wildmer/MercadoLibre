@@ -29,7 +29,10 @@ class Product extends Model
 	{
 		return Attribute::make(
 			get: function ($value, $attributes) {
-				return Str::limit($attributes['description'], 80,  '...');
+				if (isset($attributes['description'])) {
+					return Str::limit($attributes['description'], 80,  '...');
+				}
+				return '';
 			},
 			// set: fn ($value) => Str::upper($value)
 		);

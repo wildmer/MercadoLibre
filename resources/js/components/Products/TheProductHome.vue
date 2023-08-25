@@ -1,6 +1,4 @@
 <template>
-	<!-- <h1>1as</h1> -->
-        <!-- @foreach ($products as $product) -->
             <div class="card mx-2 my-3 card_size" v-for="(product, index) in products" :key="index">
                 <img :src="product.file.route" class="card-img-top" alt="Imagen del producto">
                 <div class="card-body">
@@ -29,7 +27,7 @@
                     </div>
                 </div>
             </div>
-        <!-- @endforeach -->
+
 </template>
 
 <script>

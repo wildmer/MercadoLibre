@@ -48,6 +48,18 @@ class ProductController extends Controller
 		return response()->json(['product' => $product], 200);
 	}
 
+	public function showFull(Product $product)
+	{
+		$productWithDetails = Product::with('category', 'file')
+			->where('id', $product->id)
+			->where('stock', '>', 0)
+			->first(); // Obtén solo un producto (el específico)
+
+		return view('products.show', compact('productWithDetails'));
+		// return response()->json(['product' => $productWithDetails], 200);
+	}
+
+
 	public function update(ProductUpdateRequest $request, Product $product)
 	{
 		try {

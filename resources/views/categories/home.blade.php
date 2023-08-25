@@ -3,12 +3,12 @@
         <h1>Listado de Produtos</h1>
     </section>
 
-    <section class="d-flex flex-wrap justify-content-center">
+    <section class="">
 		@guest
-			<the-product-home :products="{{ $products }}" :user="false" />
+			<the-category-home :categories="{{ $categories }}" :user="false" />
 		@else
 			{{-- @if (Route::has('login')) --}}
-				<the-product-home :products="{{ $products }}" :user="{{Auth::user()}}" />
+				<the-category-home :categories="{{ $categories }}" :user="{{Auth::user()}}" />
 			{{-- @endif --}}
 		@endguest
     </section>

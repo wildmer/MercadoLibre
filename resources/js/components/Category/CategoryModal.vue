@@ -64,7 +64,7 @@ export default {
 				if (is_create.value) {
 					await axios.post('/categories', category.value)
 				} else {
-					await axios.put('/categories${category.value.id}', category.value)
+					await axios.put(`/categories/${category.value.id}`, category.value)
 				}
 				successMessage({ is_delete : false, reload : false}).then(() => successResponse())
 			} catch (error) {

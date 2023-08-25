@@ -27,6 +27,7 @@
         </div>
 
         {{ $slot }}
+		{{-- TODO: Usar vue-route --}}
     </main>
 
     {{ $scripts ?? '' }}

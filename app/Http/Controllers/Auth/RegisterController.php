@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -47,6 +48,7 @@ class RegisterController extends Controller
 	{
 		$user = new User($request->all());
 		$user->save();
+		$user->assignRole('user');
 		Auth::login($user);
 		return redirect($this->redirectPath());
 	}

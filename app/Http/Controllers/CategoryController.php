@@ -8,6 +8,25 @@ use Yajra\DataTables\Facades\DataTables;
 
 class CategoryController extends Controller
 {
+
+	public function home()
+	{
+		$categories = Category::with([
+			'products' => function ($query) {
+				$query->where('stock', '>', 0)
+					->whereNull('deleted_at');
+			},
+			'products.file' // Cargar la relación 'file' de 'products'
+		])
+		->whereHas('products', function ($query) {
+			$query->where('stock', '>', 0)
+				->whereNull('deleted_at');
+		})
+		->get();
+
+		return view('categories.home', compact('categories'));
+	}
+
 	public function index(Request $request)
 	{
 		$categories = Category::get();
@@ -28,15 +47,33 @@ class CategoryController extends Controller
 		return DataTables::of($categories)->toJson();
 	}
 
-
 	public function show(Category $category)
 	{
 		return response()->json(['category' => $category], 200);
 	}
 
-	public function update(Request $request, $id)
+	public function showFull(Category $category)
 	{
-		//
+		$categoryWithProducts = Category::with([
+			'products' => function ($query) {
+				$query->where('stock', '>', 0)
+					->whereNull('deleted_at');
+			},
+			'products.file' // Cargar la relación 'file' de 'products'
+		])
+		->where('id', $category->id)
+		->first(); // Obtener solo una categoría (la específica)
+
+		return view('categories.show', compact('categoryWithProducts'));
+		// return response()->json(['category' => $categoryWithProducts], 200);
+	}
+
+
+	public function update(Request $request, Category $category)
+	
+	{
+		$category->update($request->all());
+		return response()->json([], 204);
 	}
 
 	public function destroy(Category $category)
